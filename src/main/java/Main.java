@@ -6,6 +6,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class Main {
 
@@ -22,11 +25,30 @@ public class Main {
         table.setWidthPercentage(100);
 
 
+        ArrayList<Integer[]> list = new ArrayList<>();
         for(int i=20; i<100; i+=10) {
 
             for(int k=0; k<10; k++) {
                 for(int j=0; j<10; j++) {
-                    Phrase pr = new Phrase((i+k)+" x "+(i+j)+" = ", font );
+                    list.add(new Integer[] { i+k, i+j});
+                }
+            }
+        }
+
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+
+        Iterator<Integer[]> iterator = list.iterator();
+
+        for(int i=20; i<100; i+=10) {
+
+            for(int k=0; k<10; k++) {
+                for(int j=0; j<10; j++) {
+                    Integer[] rec = iterator.next();
+
+                    Phrase pr = new Phrase(rec[0]+" x "+rec[1]+" = ", font );
                     table.addCell(pr);
                 }
             }
